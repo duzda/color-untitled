@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://src/color_wall.gd" type="Script" id=1]
+[ext_resource path="res://shaders/color_wall.shader" type="Shader" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+resource_local_to_scene = true
+extents = Vector2( 3.08864, 3.10139 )
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = ExtResource( 2 )
+
+[node name="ColorWall" type="ColorRect"]
+margin_right = 41.0
+margin_bottom = 12.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 1025
+collision_mask = 1025
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource( 1 )
+
+[node name="ReferenceRect" type="ReferenceRect" parent="."]
+material = SubResource( 2 )
+margin_right = 4.0
+margin_bottom = 4.0
+border_color = Color( 1, 1, 1, 1 )
+editor_only = false
+__meta__ = {
+"_edit_use_anchors_": false
+}

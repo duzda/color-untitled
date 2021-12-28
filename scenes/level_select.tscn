@@ -1,0 +1,52 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://src/level_selector_generator.gd" type="Script" id=1]
+[ext_resource path="res://fonts/end_game_menu.tres" type="DynamicFont" id=2]
+
+[sub_resource type="StyleBoxEmpty" id=1]
+
+[node name="LevelSelect" type="Node"]
+
+[node name="GridContainer" type="GridContainer" parent="."]
+anchor_left = 0.3
+anchor_top = 0.3
+anchor_right = 0.7
+anchor_bottom = 0.7
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/vseparation = 20
+custom_constants/hseparation = 20
+columns = 4
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LevelSelectLabel" type="Label" parent="."]
+anchor_top = 0.2
+anchor_right = 1.0
+anchor_bottom = 0.2
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Level Select"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BackButton" type="Button" parent="."]
+anchor_top = 0.75
+anchor_right = 1.0
+anchor_bottom = 0.8
+margin_left = 1.25989
+margin_right = 1.25989
+custom_styles/focus = SubResource( 1 )
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Back"
+flat = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="pressed" from="BackButton" to="GridContainer" method="_on_BackButton_pressed"]

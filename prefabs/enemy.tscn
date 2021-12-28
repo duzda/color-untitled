@@ -1,0 +1,70 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://src/enemy.gd" type="Script" id=1]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 9.5, 19.5 )
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 199.359
+
+[sub_resource type="Curve" id=3]
+_data = [ Vector2( 0, 1 ), 0.0, -0.0189148, 0, 0, Vector2( 1, 0 ), -3.24225, 0.0, 0, 0 ]
+
+[node name="Enemy" type="KinematicBody2D" groups=[
+"enemy",
+]]
+collision_layer = 1025
+collision_mask = 1025
+script = ExtResource( 1 )
+speed = 550
+gravity = 2000
+friction = 0.2
+acceleration = 0.1
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_left = -10.0
+margin_top = -20.0
+margin_right = 10.0
+margin_bottom = 20.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="DetectRadius" type="Area2D" parent="."]
+collision_layer = 524288
+collision_mask = 524288
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectRadius"]
+position = Vector2( 0, -0.44545 )
+shape = SubResource( 2 )
+
+[node name="RayCast2DLeft" type="RayCast2D" parent="."]
+position = Vector2( -9.5, -12 )
+rotation = 0.785398
+enabled = true
+
+[node name="RayCast2DRight" type="RayCast2D" parent="."]
+position = Vector2( 9.5, -12 )
+rotation = -0.785398
+enabled = true
+
+[node name="Particles2D" type="CPUParticles2D" parent="."]
+position = Vector2( 0, 10 )
+emitting = false
+amount = 28
+lifetime = 0.8
+lifetime_randomness = 0.2
+emission_shape = 1
+emission_sphere_radius = 5.0
+gravity = Vector2( 0, -98 )
+scale_amount = 4.0
+scale_amount_random = 1.0
+scale_amount_curve = SubResource( 3 )
+color = Color( 0, 0, 0, 1 )
+
+[connection signal="body_entered" from="DetectRadius" to="." method="_on_DetectRadius_body_entered"]
+[connection signal="body_exited" from="DetectRadius" to="." method="_on_DetectRadius_body_exited"]

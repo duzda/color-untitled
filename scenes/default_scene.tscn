@@ -1,0 +1,85 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://src/scene_manager.gd" type="Script" id=1]
+[ext_resource path="res://src/color_manager.gd" type="Script" id=2]
+[ext_resource path="res://prefabs/player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://prefabs/color_swapper.tscn" type="PackedScene" id=4]
+[ext_resource path="res://prefabs/color_wall.tscn" type="PackedScene" id=5]
+[ext_resource path="res://prefabs/GUI.tscn" type="PackedScene" id=6]
+[ext_resource path="res://prefabs/wall.tscn" type="PackedScene" id=7]
+[ext_resource path="res://prefabs/enemy.tscn" type="PackedScene" id=8]
+[ext_resource path="res://src/pause.gd" type="Script" id=9]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 1705.98, 57.7145 )
+
+[sub_resource type="Environment" id=2]
+background_mode = 4
+fog_color = Color( 0.501961, 0.6, 0.701961, 1 )
+dof_blur_far_distance = 2.98
+glow_blend_mode = 1
+glow_hdr_threshold = 0.0
+glow_bicubic_upscale = true
+
+[node name="ColorManager" type="Node"]
+script = ExtResource( 2 )
+
+[node name="Enemies" type="Node" parent="."]
+
+[node name="Enemy" parent="Enemies" instance=ExtResource( 8 )]
+position = Vector2( 602.389, 513.609 )
+
+[node name="Walls" type="Node" parent="."]
+
+[node name="Wall" parent="Walls" instance=ExtResource( 7 )]
+margin_left = -192.333
+margin_top = 495.063
+margin_right = 124.667
+margin_bottom = 517.063
+
+[node name="ColorWalls" type="Node" parent="."]
+
+[node name="ColorWall" parent="ColorWalls" instance=ExtResource( 5 )]
+margin_left = -153.165
+margin_top = 353.572
+margin_right = 92.8348
+margin_bottom = 371.572
+color_type = 0
+
+[node name="ColorSwappers" type="Node" parent="."]
+
+[node name="ColorSwapper5" parent="ColorSwappers" instance=ExtResource( 4 )]
+position = Vector2( 355.022, 555.963 )
+
+[node name="MapBorders" type="Node" parent="."]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="MapBorders" groups=[
+"map_border",
+]]
+collision_layer = 786432
+collision_mask = 786432
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MapBorders/StaticBody2D"]
+position = Vector2( 346.312, 1270.49 )
+shape = SubResource( 1 )
+
+[node name="Player" parent="." instance=ExtResource( 3 )]
+position = Vector2( 95.2806, 40.1295 )
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 2 )
+
+[node name="SceneManager" type="Node" parent="."]
+script = ExtResource( 1 )
+
+[node name="GUI" parent="." instance=ExtResource( 6 )]
+
+[node name="Pause" type="Node" parent="."]
+pause_mode = 2
+script = ExtResource( 9 )
+
+[connection signal="black_entered" from="." to="Player" method="_on_ColorManager_black_entered"]
+[connection signal="game_won" from="." to="Player" method="game_won"]
+[connection signal="game_won_guiManager" from="." to="GUI" method="_on_ColorManager_game_won_guiManager"]
+[connection signal="other_entered" from="." to="Player" method="_on_ColorManager_other_entered"]
+[connection signal="on_gameover" from="Player" to="GUI" method="on_gameover"]

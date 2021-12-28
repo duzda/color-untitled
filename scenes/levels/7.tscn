@@ -1,0 +1,227 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://src/pause.gd" type="Script" id=1]
+[ext_resource path="res://src/color_manager.gd" type="Script" id=2]
+[ext_resource path="res://src/scene_manager.gd" type="Script" id=3]
+[ext_resource path="res://prefabs/color_wall.tscn" type="PackedScene" id=4]
+[ext_resource path="res://prefabs/wall.tscn" type="PackedScene" id=5]
+[ext_resource path="res://prefabs/GUI.tscn" type="PackedScene" id=6]
+[ext_resource path="res://prefabs/color_swapper.tscn" type="PackedScene" id=7]
+[ext_resource path="res://prefabs/player.tscn" type="PackedScene" id=8]
+[ext_resource path="res://prefabs/enemy.tscn" type="PackedScene" id=9]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 1705.98, 57.7145 )
+
+[node name="ColorManager" type="Node"]
+script = ExtResource( 2 )
+current_level = 7
+
+[node name="Enemies" type="Node" parent="."]
+
+[node name="Enemy" parent="Enemies" instance=ExtResource( 9 )]
+position = Vector2( -442.06, 954.339 )
+
+[node name="Walls" type="Node" parent="."]
+
+[node name="Wall" parent="Walls" instance=ExtResource( 5 )]
+margin_left = -192.0
+margin_top = 493.088
+margin_right = 125.0
+margin_bottom = 513.088
+
+[node name="Wall4" parent="Walls" instance=ExtResource( 5 )]
+margin_left = -293.0
+margin_top = -482.912
+margin_right = -273.0
+margin_bottom = 602.088
+
+[node name="Wall14" parent="Walls" instance=ExtResource( 5 )]
+margin_left = -293.0
+margin_top = -482.912
+margin_right = -108.0
+margin_bottom = -460.912
+
+[node name="Wall5" parent="Walls" instance=ExtResource( 5 )]
+margin_left = 194.0
+margin_top = -474.912
+margin_right = 214.0
+margin_bottom = 602.088
+
+[node name="Wall3" parent="Walls" instance=ExtResource( 5 )]
+margin_left = -509.881
+margin_top = 974.088
+margin_right = -150.881
+margin_bottom = 994.088
+
+[node name="Wall6" parent="Walls" instance=ExtResource( 5 )]
+margin_left = -652.528
+margin_top = 821.021
+margin_right = -581.528
+margin_bottom = 841.021
+
+[node name="Wall7" parent="Walls" instance=ExtResource( 5 )]
+margin_left = -393.57
+margin_top = 706.224
+margin_right = -322.57
+margin_bottom = 726.224
+
+[node name="Wall9" parent="Walls" instance=ExtResource( 5 )]
+margin_left = -496.57
+margin_top = 456.224
+margin_right = -425.57
+margin_bottom = 476.224
+
+[node name="Wall10" parent="Walls" instance=ExtResource( 5 )]
+margin_left = -344.57
+margin_top = 282.224
+margin_right = -273.57
+margin_bottom = 302.224
+
+[node name="Wall11" parent="Walls" instance=ExtResource( 5 )]
+margin_left = -444.57
+margin_top = 97.2243
+margin_right = -373.57
+margin_bottom = 117.224
+
+[node name="Wall12" parent="Walls" instance=ExtResource( 5 )]
+margin_left = -307.0
+margin_top = -108.912
+margin_right = -273.0
+margin_bottom = -88.9116
+
+[node name="Wall15" parent="Walls" instance=ExtResource( 5 )]
+margin_left = -451.0
+margin_top = -253.912
+margin_right = -412.0
+margin_bottom = -233.912
+
+[node name="Wall13" parent="Walls" instance=ExtResource( 5 )]
+margin_left = -308.054
+margin_top = -434.049
+margin_right = -274.054
+margin_bottom = -414.049
+
+[node name="Wall8" parent="Walls" instance=ExtResource( 5 )]
+margin_left = -415.0
+margin_top = 621.088
+margin_right = -394.0
+margin_bottom = 726.088
+
+[node name="Wall2" parent="Walls" instance=ExtResource( 5 )]
+margin_left = -136.0
+margin_top = 584.088
+margin_right = 59.0
+margin_bottom = 602.088
+
+[node name="ColorWalls" type="Node" parent="."]
+
+[node name="ColorWall" parent="ColorWalls" instance=ExtResource( 4 )]
+margin_left = -273.0
+margin_top = 584.0
+margin_right = -136.0
+margin_bottom = 602.0
+color_type = 4
+
+[node name="ColorWall8" parent="ColorWalls" instance=ExtResource( 4 )]
+margin_left = -121.0
+margin_top = 513.0
+margin_right = -103.0
+margin_bottom = 584.0
+color_type = 4
+
+[node name="ColorWall2" parent="ColorWalls" instance=ExtResource( 4 )]
+margin_left = 59.094
+margin_top = 584.0
+margin_right = 194.094
+margin_bottom = 602.0
+color_type = 0
+
+[node name="ColorWall9" parent="ColorWalls" instance=ExtResource( 4 )]
+margin_left = -192.0
+margin_top = -461.0
+margin_right = -171.0
+margin_bottom = 493.0
+color_type = 0
+
+[node name="ColorWall3" parent="ColorWalls" instance=ExtResource( 4 )]
+margin_left = -110.963
+margin_top = 301.145
+margin_right = 24.0372
+margin_bottom = 319.145
+color_type = 4
+
+[node name="ColorWall4" parent="ColorWalls" instance=ExtResource( 4 )]
+margin_left = -178.0
+margin_top = 118.0
+margin_right = -117.0
+margin_bottom = 136.0
+color_type = 4
+
+[node name="ColorWall5" parent="ColorWalls" instance=ExtResource( 4 )]
+margin_left = 62.4981
+margin_top = 121.503
+margin_right = 123.498
+margin_bottom = 139.503
+color_type = 4
+
+[node name="ColorWall6" parent="ColorWalls" instance=ExtResource( 4 )]
+margin_left = 145.136
+margin_top = -64.4438
+margin_right = 206.136
+margin_bottom = -46.4438
+color_type = 4
+
+[node name="ColorWall7" parent="ColorWalls" instance=ExtResource( 4 )]
+margin_left = -49.805
+margin_top = -207.903
+margin_right = 11.195
+margin_bottom = -189.903
+color_type = 4
+
+[node name="ColorSwappers" type="Node" parent="."]
+
+[node name="ColorSwapper5" parent="ColorSwappers" instance=ExtResource( 7 )]
+position = Vector2( -36.4779, 569.423 )
+color_type = 2
+
+[node name="ColorSwapper8" parent="ColorSwappers" instance=ExtResource( 7 )]
+position = Vector2( -619.478, 794.423 )
+
+[node name="ColorSwapper7" parent="ColorSwappers" instance=ExtResource( 7 )]
+position = Vector2( -233.621, -431.293 )
+color_type = 0
+
+[node name="ColorSwapper6" parent="ColorSwappers" instance=ExtResource( 7 )]
+position = Vector2( -40.2348, 475.854 )
+color_type = 4
+
+[node name="MapBorders" type="Node" parent="."]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="MapBorders" groups=[
+"map_border",
+]]
+collision_layer = 786432
+collision_mask = 786432
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MapBorders/StaticBody2D"]
+position = Vector2( 346.312, 1270.49 )
+shape = SubResource( 1 )
+
+[node name="Player" parent="." instance=ExtResource( 8 )]
+position = Vector2( -39.531, 473 )
+
+[node name="SceneManager" type="Node" parent="."]
+script = ExtResource( 3 )
+
+[node name="GUI" parent="." instance=ExtResource( 6 )]
+
+[node name="Pause" type="Node" parent="."]
+pause_mode = 2
+script = ExtResource( 1 )
+
+[connection signal="black_entered" from="." to="Player" method="_on_ColorManager_black_entered"]
+[connection signal="game_won" from="." to="Player" method="game_won"]
+[connection signal="game_won_guiManager" from="." to="GUI" method="_on_ColorManager_game_won_guiManager"]
+[connection signal="other_entered" from="." to="Player" method="_on_ColorManager_other_entered"]
+[connection signal="on_gameover" from="Player" to="GUI" method="on_gameover"]

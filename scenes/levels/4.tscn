@@ -1,0 +1,157 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://src/color_manager.gd" type="Script" id=1]
+[ext_resource path="res://src/pause.gd" type="Script" id=2]
+[ext_resource path="res://prefabs/wall.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/scene_manager.gd" type="Script" id=4]
+[ext_resource path="res://prefabs/enemy.tscn" type="PackedScene" id=5]
+[ext_resource path="res://prefabs/color_swapper.tscn" type="PackedScene" id=6]
+[ext_resource path="res://prefabs/player.tscn" type="PackedScene" id=7]
+[ext_resource path="res://prefabs/GUI.tscn" type="PackedScene" id=9]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 1705.98, 57.7145 )
+
+[node name="ColorManager" type="Node"]
+script = ExtResource( 1 )
+current_level = 4
+
+[node name="Enemies" type="Node" parent="."]
+
+[node name="Enemy" parent="Enemies" instance=ExtResource( 5 )]
+position = Vector2( -68.605, 137.424 )
+
+[node name="Enemy2" parent="Enemies" instance=ExtResource( 5 )]
+position = Vector2( 159.255, -64.6194 )
+
+[node name="Enemy3" parent="Enemies" instance=ExtResource( 5 )]
+position = Vector2( -306.604, -295.547 )
+
+[node name="Walls" type="Node" parent="."]
+
+[node name="Wall" parent="Walls" instance=ExtResource( 3 )]
+margin_left = -6.0
+margin_top = 63.3392
+margin_right = 73.0
+margin_bottom = 85.3392
+
+[node name="Wall2" parent="Walls" instance=ExtResource( 3 )]
+margin_left = -108.634
+margin_top = 157.733
+margin_right = -29.634
+margin_bottom = 179.733
+
+[node name="Wall3" parent="Walls" instance=ExtResource( 3 )]
+margin_left = 118.36
+margin_top = 156.234
+margin_right = 197.36
+margin_bottom = 178.234
+
+[node name="Wall4" parent="Walls" instance=ExtResource( 3 )]
+margin_left = 3.73901
+margin_top = 265.611
+margin_right = 82.739
+margin_bottom = 287.611
+
+[node name="Wall8" parent="Walls" instance=ExtResource( 3 )]
+margin_left = -216.264
+margin_top = 268.978
+margin_right = -137.264
+margin_bottom = 290.978
+
+[node name="Wall10" parent="Walls" instance=ExtResource( 3 )]
+margin_left = -543.295
+margin_top = 270.167
+margin_right = -464.295
+margin_bottom = 292.167
+
+[node name="Wall11" parent="Walls" instance=ExtResource( 3 )]
+margin_left = -646.708
+margin_top = 131.54
+margin_right = -567.708
+margin_bottom = 153.54
+
+[node name="Wall12" parent="Walls" instance=ExtResource( 3 )]
+margin_left = -534.335
+margin_top = 8.69932
+margin_right = -388.335
+margin_bottom = 30.6993
+
+[node name="Wall13" parent="Walls" instance=ExtResource( 3 )]
+margin_left = -524.521
+margin_top = -226.939
+margin_right = -445.521
+margin_bottom = -204.939
+
+[node name="Wall14" parent="Walls" instance=ExtResource( 3 )]
+margin_left = -319.0
+margin_top = -276.912
+margin_right = -292.0
+margin_bottom = 13.0884
+
+[node name="Wall6" parent="Walls" instance=ExtResource( 3 )]
+margin_left = 120.0
+margin_top = -43.9116
+margin_right = 195.0
+margin_bottom = -21.9116
+
+[node name="Wall9" parent="Walls" instance=ExtResource( 3 )]
+margin_left = -108.328
+margin_top = -43.9116
+margin_right = -33.3278
+margin_bottom = -21.9116
+
+[node name="Wall7" parent="Walls" instance=ExtResource( 3 )]
+margin_left = 5.98386
+margin_top = -150.823
+margin_right = 84.9839
+margin_bottom = -128.823
+
+[node name="ColorWalls" type="Node" parent="."]
+
+[node name="ColorSwappers" type="Node" parent="."]
+
+[node name="ColorSwapper5" parent="ColorSwappers" instance=ExtResource( 6 )]
+position = Vector2( 44.5234, 247.697 )
+color_type = 1
+
+[node name="ColorSwapper8" parent="ColorSwappers" instance=ExtResource( 6 )]
+position = Vector2( 32.5099, 43.4669 )
+
+[node name="ColorSwapper6" parent="ColorSwappers" instance=ExtResource( 6 )]
+position = Vector2( 43.6459, -170.18 )
+color_type = 0
+
+[node name="ColorSwapper7" parent="ColorSwappers" instance=ExtResource( 6 )]
+position = Vector2( -480.196, -249.52 )
+color_type = 2
+
+[node name="MapBorders" type="Node" parent="."]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="MapBorders" groups=[
+"map_border",
+]]
+collision_layer = 786432
+collision_mask = 786432
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MapBorders/StaticBody2D"]
+position = Vector2( 189.514, 433.045 )
+shape = SubResource( 1 )
+
+[node name="Player" parent="." instance=ExtResource( 7 )]
+position = Vector2( 30.8104, 43.5986 )
+
+[node name="SceneManager" type="Node" parent="."]
+script = ExtResource( 4 )
+
+[node name="GUI" parent="." instance=ExtResource( 9 )]
+
+[node name="Pause" type="Node" parent="."]
+pause_mode = 2
+script = ExtResource( 2 )
+
+[connection signal="black_entered" from="." to="Player" method="_on_ColorManager_black_entered"]
+[connection signal="game_won" from="." to="Player" method="game_won"]
+[connection signal="game_won_guiManager" from="." to="GUI" method="_on_ColorManager_game_won_guiManager"]
+[connection signal="other_entered" from="." to="Player" method="_on_ColorManager_other_entered"]
+[connection signal="on_gameover" from="Player" to="GUI" method="on_gameover"]

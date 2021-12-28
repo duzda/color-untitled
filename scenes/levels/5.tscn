@@ -1,0 +1,126 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://src/color_manager.gd" type="Script" id=1]
+[ext_resource path="res://src/pause.gd" type="Script" id=2]
+[ext_resource path="res://prefabs/wall.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/scene_manager.gd" type="Script" id=4]
+[ext_resource path="res://prefabs/enemy.tscn" type="PackedScene" id=5]
+[ext_resource path="res://prefabs/color_swapper.tscn" type="PackedScene" id=6]
+[ext_resource path="res://prefabs/player.tscn" type="PackedScene" id=7]
+[ext_resource path="res://prefabs/GUI.tscn" type="PackedScene" id=9]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 1705.98, 57.7145 )
+
+[node name="ColorManager" type="Node"]
+script = ExtResource( 1 )
+current_level = 5
+
+[node name="Enemies" type="Node" parent="."]
+
+[node name="Enemy" parent="Enemies" instance=ExtResource( 5 )]
+position = Vector2( 467.837, 798.605 )
+
+[node name="Enemy3" parent="Enemies" instance=ExtResource( 5 )]
+position = Vector2( 554.267, 684.114 )
+
+[node name="Enemy2" parent="Enemies" instance=ExtResource( 5 )]
+position = Vector2( 792.229, 560.643 )
+
+[node name="Walls" type="Node" parent="."]
+
+[node name="Wall" parent="Walls" instance=ExtResource( 3 )]
+margin_left = -192.0
+margin_top = 495.088
+margin_right = 145.0
+margin_bottom = 517.088
+
+[node name="Wall6" parent="Walls" instance=ExtResource( 3 )]
+margin_left = 876.0
+margin_top = 154.088
+margin_right = 1233.0
+margin_bottom = 176.088
+
+[node name="Wall3" parent="Walls" instance=ExtResource( 3 )]
+margin_left = 122.0
+margin_top = 819.088
+margin_right = 877.0
+margin_bottom = 843.088
+
+[node name="Wall10" parent="Walls" instance=ExtResource( 3 )]
+margin_left = 122.0
+margin_top = 504.088
+margin_right = 145.0
+margin_bottom = 843.088
+
+[node name="Wall5" parent="Walls" instance=ExtResource( 3 )]
+margin_left = 393.0
+margin_top = 704.088
+margin_right = 753.0
+margin_bottom = 728.088
+
+[node name="Wall7" parent="Walls" instance=ExtResource( 3 )]
+margin_left = 748.0
+margin_top = 580.088
+margin_right = 831.0
+margin_bottom = 604.088
+
+[node name="Wall8" parent="Walls" instance=ExtResource( 3 )]
+margin_left = 676.162
+margin_top = 427.434
+margin_right = 759.162
+margin_bottom = 451.434
+
+[node name="Wall9" parent="Walls" instance=ExtResource( 3 )]
+margin_left = 827.695
+margin_top = 252.33
+margin_right = 910.695
+margin_bottom = 276.33
+
+[node name="Wall4" parent="Walls" instance=ExtResource( 3 )]
+margin_left = 876.0
+margin_top = 155.088
+margin_right = 911.0
+margin_bottom = 843.088
+
+[node name="ColorWalls" type="Node" parent="."]
+
+[node name="ColorSwappers" type="Node" parent="."]
+
+[node name="ColorSwapper5" parent="ColorSwappers" instance=ExtResource( 6 )]
+position = Vector2( -77.5004, 473.584 )
+color_type = 0
+
+[node name="ColorSwapper6" parent="ColorSwappers" instance=ExtResource( 6 )]
+position = Vector2( 1192.13, 129.617 )
+color_type = 2
+
+[node name="MapBorders" type="Node" parent="."]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="MapBorders" groups=[
+"map_border",
+]]
+collision_layer = 786432
+collision_mask = 786432
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MapBorders/StaticBody2D"]
+position = Vector2( 454.255, 1083.18 )
+shape = SubResource( 1 )
+
+[node name="Player" parent="." instance=ExtResource( 7 )]
+position = Vector2( -77.2896, 475.904 )
+
+[node name="SceneManager" type="Node" parent="."]
+script = ExtResource( 4 )
+
+[node name="GUI" parent="." instance=ExtResource( 9 )]
+
+[node name="Pause" type="Node" parent="."]
+pause_mode = 2
+script = ExtResource( 2 )
+
+[connection signal="black_entered" from="." to="Player" method="_on_ColorManager_black_entered"]
+[connection signal="game_won" from="." to="Player" method="game_won"]
+[connection signal="game_won_guiManager" from="." to="GUI" method="_on_ColorManager_game_won_guiManager"]
+[connection signal="other_entered" from="." to="Player" method="_on_ColorManager_other_entered"]
+[connection signal="on_gameover" from="Player" to="GUI" method="on_gameover"]

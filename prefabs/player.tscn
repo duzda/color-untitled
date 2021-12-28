@@ -1,0 +1,130 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://src/player.gd" type="Script" id=1]
+[ext_resource path="res://prefabs/shard_emitter.tscn" type="PackedScene" id=2]
+[ext_resource path="res://shaders/impact.shader" type="Shader" id=3]
+[ext_resource path="res://src/shatter_impact.gd" type="Script" id=4]
+[ext_resource path="res://shaders/dissolve.shader" type="Shader" id=5]
+[ext_resource path="res://src/shake.gd" type="Script" id=6]
+
+[sub_resource type="OpenSimplexNoise" id=1]
+
+[sub_resource type="NoiseTexture" id=2]
+noise = SubResource( 1 )
+
+[sub_resource type="ShaderMaterial" id=3]
+shader = ExtResource( 5 )
+shader_param/dissolve_value = 1.0
+shader_param/dissolve_texture = SubResource( 2 )
+
+[sub_resource type="OpenSimplexNoise" id=4]
+
+[sub_resource type="NoiseTexture" id=5]
+noise = SubResource( 4 )
+
+[sub_resource type="ShaderMaterial" id=6]
+shader = ExtResource( 5 )
+shader_param/dissolve_value = 0.388
+shader_param/dissolve_texture = SubResource( 5 )
+
+[sub_resource type="Animation" id=7]
+resource_name = "dissolve"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:material:shader_param/dissolve_value")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 3, 8.28214 ),
+"update": 0,
+"values": [ 1.0, 0.0 ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath("../Camera2D")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.6, 0.8, 0.9 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"values": [ {
+"args": [ 2.0, 2.0 ],
+"method": "shake"
+}, {
+"args": [ 5.0, 1.0 ],
+"method": "shake"
+}, {
+"args": [ 10.0, 1.0 ],
+"method": "shake"
+} ]
+}
+
+[sub_resource type="RectangleShape2D" id=8]
+extents = Vector2( 9.5, 19.5 )
+
+[sub_resource type="ShaderMaterial" id=9]
+shader = ExtResource( 3 )
+shader_param/params = Vector3( 5, 1.8, 0.3 )
+shader_param/position = Vector2( 0.5, 0.5 )
+shader_param/elapsed_time = 0.0
+
+[node name="Player" type="KinematicBody2D" groups=[
+"player",
+]]
+collision_layer = 786433
+collision_mask = 786433
+script = ExtResource( 1 )
+__meta__ = {
+"_editor_description_": ""
+}
+speed = 500
+jump_speed = -900
+gravity = 2000
+friction = 0.2
+acceleration = 0.1
+black_time = 6.0
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource( 3 )
+margin_left = -10.0
+margin_top = -20.0
+margin_right = 10.0
+margin_bottom = 20.0
+rect_pivot_offset = Vector2( 10, 40 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ShardEmitter" parent="ColorRect" instance=ExtResource( 2 )]
+material = SubResource( 6 )
+position = Vector2( 10, 20 )
+nbr_of_shards = 4
+threshhold = 5.0
+min_impulse = 5.0
+max_impulse = 20.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ColorRect"]
+anims/dissolve = SubResource( 7 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0.0883904, 0 )
+shape = SubResource( 8 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+smoothing_enabled = true
+editor_draw_drag_margin = true
+script = ExtResource( 6 )
+
+[node name="ShatterImpact" type="ColorRect" parent="Camera2D"]
+material = SubResource( 9 )
+anchor_right = 0.432
+anchor_bottom = 0.885
+color = Color( 0, 0, 0, 0 )
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

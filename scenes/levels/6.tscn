@@ -1,0 +1,130 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://src/pause.gd" type="Script" id=1]
+[ext_resource path="res://src/color_manager.gd" type="Script" id=2]
+[ext_resource path="res://src/scene_manager.gd" type="Script" id=3]
+[ext_resource path="res://prefabs/wall.tscn" type="PackedScene" id=5]
+[ext_resource path="res://prefabs/GUI.tscn" type="PackedScene" id=6]
+[ext_resource path="res://prefabs/color_swapper.tscn" type="PackedScene" id=7]
+[ext_resource path="res://prefabs/player.tscn" type="PackedScene" id=8]
+[ext_resource path="res://prefabs/enemy.tscn" type="PackedScene" id=9]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 1705.98, 57.7145 )
+
+[node name="ColorManager" type="Node"]
+script = ExtResource( 2 )
+current_level = 6
+
+[node name="Enemies" type="Node" parent="."]
+
+[node name="Enemy" parent="Enemies" instance=ExtResource( 9 )]
+position = Vector2( 253.873, 475.147 )
+
+[node name="Enemy2" parent="Enemies" instance=ExtResource( 9 )]
+position = Vector2( 686.094, 568.282 )
+
+[node name="Walls" type="Node" parent="."]
+
+[node name="Wall" parent="Walls" instance=ExtResource( 5 )]
+margin_left = -192.0
+margin_top = 495.088
+margin_right = 361.0
+margin_bottom = 514.088
+
+[node name="Wall2" parent="Walls" instance=ExtResource( 5 )]
+margin_left = 344.0
+margin_top = 282.088
+margin_right = 361.0
+margin_bottom = 509.088
+
+[node name="Wall3" parent="Walls" instance=ExtResource( 5 )]
+margin_left = 315.843
+margin_top = 281.421
+margin_right = 584.843
+margin_bottom = 299.421
+
+[node name="Wall6" parent="Walls" instance=ExtResource( 5 )]
+margin_left = 478.0
+margin_top = 589.088
+margin_right = 908.0
+margin_bottom = 607.088
+
+[node name="Wall4" parent="Walls" instance=ExtResource( 5 )]
+margin_left = 674.811
+margin_top = 147.088
+margin_right = 696.811
+margin_bottom = 500.088
+
+[node name="Wall5" parent="Walls" instance=ExtResource( 5 )]
+margin_left = 674.856
+margin_top = 147.063
+margin_right = 866.856
+margin_bottom = 166.063
+
+[node name="Wall7" parent="Walls" instance=ExtResource( 5 )]
+margin_left = 855.747
+margin_top = -366.289
+margin_right = 875.747
+margin_bottom = 165.712
+
+[node name="Wall8" parent="Walls" instance=ExtResource( 5 )]
+margin_left = 677.15
+margin_top = 357.313
+margin_right = 804.15
+margin_bottom = 380.313
+
+[node name="Wall9" parent="Walls" instance=ExtResource( 5 )]
+margin_left = 643.0
+margin_top = 405.088
+margin_right = 684.0
+margin_bottom = 428.088
+
+[node name="ColorWalls" type="Node" parent="."]
+
+[node name="ColorSwappers" type="Node" parent="."]
+
+[node name="ColorSwapper5" parent="ColorSwappers" instance=ExtResource( 7 )]
+position = Vector2( -168.204, 475.58 )
+color_type = 0
+
+[node name="ColorSwapper7" parent="ColorSwappers" instance=ExtResource( 7 )]
+position = Vector2( 831.052, 125.046 )
+color_type = 0
+
+[node name="ColorSwapper8" parent="ColorSwappers" instance=ExtResource( 7 )]
+position = Vector2( 720.451, 332.927 )
+color_type = 2
+
+[node name="ColorSwapper6" parent="ColorSwappers" instance=ExtResource( 7 )]
+position = Vector2( 292.545, 474.082 )
+
+[node name="MapBorders" type="Node" parent="."]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="MapBorders" groups=[
+"map_border",
+]]
+collision_layer = 786432
+collision_mask = 786432
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MapBorders/StaticBody2D"]
+position = Vector2( 405.642, 918.749 )
+shape = SubResource( 1 )
+
+[node name="Player" parent="." instance=ExtResource( 8 )]
+position = Vector2( -167.855, 474.639 )
+
+[node name="SceneManager" type="Node" parent="."]
+script = ExtResource( 3 )
+
+[node name="GUI" parent="." instance=ExtResource( 6 )]
+
+[node name="Pause" type="Node" parent="."]
+pause_mode = 2
+script = ExtResource( 1 )
+
+[connection signal="black_entered" from="." to="Player" method="_on_ColorManager_black_entered"]
+[connection signal="game_won" from="." to="Player" method="game_won"]
+[connection signal="game_won_guiManager" from="." to="GUI" method="_on_ColorManager_game_won_guiManager"]
+[connection signal="other_entered" from="." to="Player" method="_on_ColorManager_other_entered"]
+[connection signal="on_gameover" from="Player" to="GUI" method="on_gameover"]

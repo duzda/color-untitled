@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/wall.gd" type="Script" id=1]
+
+[sub_resource type="RectangleShape2D" id=1]
+resource_local_to_scene = true
+extents = Vector2( 0.520029, 6.42348 )
+
+[node name="Wall" type="ColorRect" groups=[
+"wall",
+]]
+anchor_top = -0.000147311
+anchor_bottom = -0.000147311
+margin_top = 0.0883865
+margin_right = 26.0
+margin_bottom = 8.08839
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 1025
+collision_mask = 1025
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource( 1 )

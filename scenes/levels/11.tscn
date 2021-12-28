@@ -1,0 +1,146 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://src/color_manager.gd" type="Script" id=1]
+[ext_resource path="res://src/pause.gd" type="Script" id=2]
+[ext_resource path="res://src/scene_manager.gd" type="Script" id=3]
+[ext_resource path="res://prefabs/color_swapper.tscn" type="PackedScene" id=4]
+[ext_resource path="res://prefabs/color_wall.tscn" type="PackedScene" id=5]
+[ext_resource path="res://prefabs/GUI.tscn" type="PackedScene" id=6]
+[ext_resource path="res://prefabs/wall.tscn" type="PackedScene" id=7]
+[ext_resource path="res://prefabs/player.tscn" type="PackedScene" id=9]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 1705.98, 57.7145 )
+
+[node name="ColorManager" type="Node"]
+script = ExtResource( 1 )
+current_level = 11
+
+[node name="Enemies" type="Node" parent="."]
+
+[node name="Walls" type="Node" parent="."]
+
+[node name="Wall" parent="Walls" instance=ExtResource( 7 )]
+margin_left = 68.0
+margin_top = 61.0884
+margin_right = 267.0
+margin_bottom = 83.0884
+
+[node name="Wall8" parent="Walls" instance=ExtResource( 7 )]
+margin_left = 48.0
+margin_top = -241.912
+margin_right = 68.0
+margin_bottom = 83.0884
+
+[node name="Wall7" parent="Walls" instance=ExtResource( 7 )]
+margin_left = 534.833
+margin_top = 747.608
+margin_right = 765.833
+margin_bottom = 768.608
+
+[node name="Wall2" parent="Walls" instance=ExtResource( 7 )]
+margin_left = 452.0
+margin_top = 65.0884
+margin_right = 472.0
+margin_bottom = 87.0884
+
+[node name="Wall3" parent="Walls" instance=ExtResource( 7 )]
+margin_left = 663.428
+margin_top = -44.401
+margin_right = 683.428
+margin_bottom = -22.401
+
+[node name="Wall4" parent="Walls" instance=ExtResource( 7 )]
+margin_left = 836.287
+margin_top = -192.566
+margin_right = 856.287
+margin_bottom = -170.566
+
+[node name="Wall5" parent="Walls" instance=ExtResource( 7 )]
+margin_left = 715.061
+margin_top = -358.69
+margin_right = 735.061
+margin_bottom = -336.69
+
+[node name="Wall6" parent="Walls" instance=ExtResource( 7 )]
+margin_left = 836.287
+margin_top = -511.345
+margin_right = 856.287
+margin_bottom = -489.345
+
+[node name="ColorWalls" type="Node" parent="."]
+
+[node name="ColorWall" parent="ColorWalls" instance=ExtResource( 5 )]
+margin_left = 282.51
+margin_top = 617.041
+margin_right = 303.51
+margin_bottom = 639.041
+color_type = 4
+
+[node name="ColorWall2" parent="ColorWalls" instance=ExtResource( 5 )]
+margin_left = 42.5102
+margin_top = 705.041
+margin_right = 63.5102
+margin_bottom = 727.041
+color_type = 4
+
+[node name="ColorWall3" parent="ColorWalls" instance=ExtResource( 5 )]
+margin_left = -183.49
+margin_top = 531.041
+margin_right = -162.49
+margin_bottom = 553.041
+color_type = 4
+
+[node name="ColorWall4" parent="ColorWalls" instance=ExtResource( 5 )]
+margin_left = -65.4898
+margin_top = 335.041
+margin_right = -44.4898
+margin_bottom = 357.041
+color_type = 4
+
+[node name="ColorWall5" parent="ColorWalls" instance=ExtResource( 5 )]
+margin_left = -297.49
+margin_top = 169.041
+margin_right = -276.49
+margin_bottom = 191.041
+color_type = 4
+
+[node name="ColorSwappers" type="Node" parent="."]
+
+[node name="ColorSwapper5" parent="ColorSwappers" instance=ExtResource( 4 )]
+position = Vector2( -528.444, -31.4534 )
+color_type = 2
+
+[node name="ColorSwapper6" parent="ColorSwappers" instance=ExtResource( 4 )]
+position = Vector2( 660.837, -725.818 )
+color_type = 4
+
+[node name="MapBorders" type="Node" parent="."]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="MapBorders" groups=[
+"map_border",
+]]
+collision_layer = 786432
+collision_mask = 786432
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MapBorders/StaticBody2D"]
+position = Vector2( 383.311, 924.041 )
+shape = SubResource( 1 )
+
+[node name="Player" parent="." instance=ExtResource( 9 )]
+position = Vector2( 95.2806, 40.1295 )
+
+[node name="SceneManager" type="Node" parent="."]
+script = ExtResource( 3 )
+
+[node name="GUI" parent="." instance=ExtResource( 6 )]
+
+[node name="Pause" type="Node" parent="."]
+pause_mode = 2
+script = ExtResource( 2 )
+
+[connection signal="black_entered" from="." to="Player" method="_on_ColorManager_black_entered"]
+[connection signal="game_won" from="." to="Player" method="game_won"]
+[connection signal="game_won_guiManager" from="." to="GUI" method="_on_ColorManager_game_won_guiManager"]
+[connection signal="other_entered" from="." to="Player" method="_on_ColorManager_other_entered"]
+[connection signal="on_gameover" from="Player" to="GUI" method="on_gameover"]
