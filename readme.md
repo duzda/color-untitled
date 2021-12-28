@@ -13,3 +13,5 @@ CONTROLS:
 * Movement: AD or Arrow keys
 * Jump: W, Space or Arrow key
 * Quick restart: R
+
+Font licensed under: https://www.1001fonts.com/licenses/ffc.html
